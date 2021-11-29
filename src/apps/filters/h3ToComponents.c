@@ -53,7 +53,7 @@ void doCell(H3Index h, bool verboseMode) {
 
     int h3BaseCell = components[0];
 
-    if (verboseMode || 1 == 1) {
+    if (verboseMode) {
         const char* modes[] = {
             "RESERVED",             // 0
             "Hexagon",              // 1
