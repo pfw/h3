@@ -437,6 +437,17 @@ DECLSPEC int H3_EXPORT(res0CellCount)();
 DECLSPEC void H3_EXPORT(getRes0Cells)(H3Index *out);
 /** @} */
 
+/** @defgroup getComponentCount getComponents
+ * Functions for getComponents
+ * @{
+ */
+/** @brief Number of cell components of an index */
+DECLSPEC int H3_EXPORT(getComponentCount)(H3Index h3);
+
+/** @brief Find all cell components of a given H3 index */
+DECLSPEC H3Error H3_EXPORT(getComponents)(H3Index h3, int *out);
+/** @} */
+
 /** @defgroup getPentagons getPentagons
  * Functions for getPentagons
  * @{

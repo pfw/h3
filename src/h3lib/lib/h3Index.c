@@ -1025,3 +1025,33 @@ H3Error H3_EXPORT(getPentagons)(int res, H3Index *out) {
  *         a Class II grid.
  */
 int isResolutionClassIII(int res) { return res % 2; }
+
+/**
+ * pentagonCount returns the number of pentagons (same at any resolution)
+ *
+ * @return int count of pentagon indexes
+ */
+int H3_EXPORT(getComponentCount)(H3Index h3) {
+    return H3_GET_RESOLUTION(h3) + 1;
+}
+
+/**
+ * Generates components for a given index
+ *
+ * @param h3 The H3 index.
+ * @param out Output array. Must be of size getComponentCount().
+ */
+H3Error H3_EXPORT(getComponents)(H3Index h3, int *out) {
+    //    if (res < 0 || res > MAX_H3_RES) {
+    //        return E_RES_DOMAIN;
+    //    }
+    //    int i = 0;
+    //    for (int bc = 0; bc < NUM_BASE_CELLS; bc++) {
+    //        if (_isBaseCellPentagon(bc)) {
+    //            H3Index pentagon;
+    //            setH3Index(&pentagon, res, bc, 0);
+    //            out[i++] = pentagon;
+    //        }
+    //    }
+    //    return E_SUCCESS;
+}
