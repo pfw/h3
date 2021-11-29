@@ -46,8 +46,14 @@ char resDigitToChar(int d) {
 void doCell(H3Index h, bool verboseMode) {
     int h3Mode = H3_GET_MODE(h);
     int h3Res = H3_GET_RESOLUTION(h);
-    int h3BaseCell = H3_GET_BASE_CELL(h);
-    if (verboseMode) {
+
+    int h3ComponentCount = H3_EXPORT(getComponentCount)(h);
+    int* components = calloc(h3ComponentCount, sizeof(int));
+    H3_EXPORT(getComponents)(h, components);
+
+    int h3BaseCell = components[0];
+
+    if (verboseMode || 1 == 1) {
         const char* modes[] = {
             "RESERVED",             // 0
             "Hexagon",              // 1
@@ -78,15 +84,14 @@ void doCell(H3Index h, bool verboseMode) {
         }
         printf("║ Base Cell  ║ %i\n", h3BaseCell);
         for (int i = 1; i <= h3Res; i++) {
-            printf("║%3i Child   ║ %c\n", i,
-                   resDigitToChar(H3_GET_INDEX_DIGIT(h, i)));
+            printf("║%3i Child   ║ %c\n", i, resDigitToChar(components[i]));
         }
         printf("╚════════════╝\n\n");
     } else {
         if (h3Mode == H3_HEXAGON_MODE) {
             printf("%d:%d:%d:", h3Mode, h3Res, h3BaseCell);
             for (int i = 1; i <= h3Res; i++) {
-                printf("%c", resDigitToChar(H3_GET_INDEX_DIGIT(h, i)));
+                printf("%c", resDigitToChar(components[i]));
             }
             printf("\n");
         } else if (h3Mode == H3_UNIEDGE_MODE) {

@@ -972,3 +972,27 @@ void H3_EXPORT(getPentagonIndexes)(int res, H3Index* out) {
  *         a Class II grid.
  */
 int isResClassIII(int res) { return res % 2; }
+
+/**
+ * getComponentCount returns the number of components for an index
+ *
+ * @return int count of components
+ */
+int H3_EXPORT(getComponentCount)(H3Index h3) {
+    return H3_GET_RESOLUTION(h3) + 1;
+}
+
+/**
+ * Generates components for a given index
+ *
+ * @param h3 The H3 index.
+ * @param out Output array. Must be of size getComponentCount().
+ */
+void H3_EXPORT(getComponents)(H3Index h3, int* out) {
+    int h3BaseCell = H3_GET_BASE_CELL(h3);
+    int h3Res = H3_GET_RESOLUTION(h3);
+    out[0] = h3BaseCell;
+    for (int i = 1; i <= h3Res; i++) {
+        out[i] = H3_GET_INDEX_DIGIT(h3, i);
+    }
+}

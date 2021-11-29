@@ -336,6 +336,17 @@ int H3_EXPORT(res0IndexCount)();
 void H3_EXPORT(getRes0Indexes)(H3Index *out);
 /** @} */
 
+/** @defgroup getComponentCount getComponents
+ * Functions for getComponents
+ * @{
+ */
+/** @brief Number of cell components of an index */
+int H3_EXPORT(getComponentCount)(H3Index h3);
+
+/** @brief Find all cell components of a given H3 index */
+void H3_EXPORT(getComponents)(H3Index h3, int *out);
+/** @} */
+
 /** @defgroup getPentagonIndexes getPentagonIndexes
  * Functions for getPentagonIndexes
  * @{
