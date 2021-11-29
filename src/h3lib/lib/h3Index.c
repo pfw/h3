@@ -1027,9 +1027,9 @@ H3Error H3_EXPORT(getPentagons)(int res, H3Index *out) {
 int isResolutionClassIII(int res) { return res % 2; }
 
 /**
- * pentagonCount returns the number of pentagons (same at any resolution)
+ * getComponentCount returns the number of components for an index
  *
- * @return int count of pentagon indexes
+ * @return int count of components
  */
 int H3_EXPORT(getComponentCount)(H3Index h3) {
     return H3_GET_RESOLUTION(h3) + 1;
@@ -1042,16 +1042,11 @@ int H3_EXPORT(getComponentCount)(H3Index h3) {
  * @param out Output array. Must be of size getComponentCount().
  */
 H3Error H3_EXPORT(getComponents)(H3Index h3, int *out) {
-    //    if (res < 0 || res > MAX_H3_RES) {
-    //        return E_RES_DOMAIN;
-    //    }
-    //    int i = 0;
-    //    for (int bc = 0; bc < NUM_BASE_CELLS; bc++) {
-    //        if (_isBaseCellPentagon(bc)) {
-    //            H3Index pentagon;
-    //            setH3Index(&pentagon, res, bc, 0);
-    //            out[i++] = pentagon;
-    //        }
-    //    }
-    //    return E_SUCCESS;
+    int h3BaseCell = H3_GET_BASE_CELL(h3);
+    int h3Res = H3_GET_RESOLUTION(h3);
+    out[0] = h3BaseCell;
+    for (int i = 1; i <= h3Res; i++) {
+        out[i] = H3_GET_INDEX_DIGIT(h3, i);
+    }
+    return E_SUCCESS;
 }
