@@ -47,13 +47,12 @@ void doCell(H3Index h, bool verboseMode) {
     int h3Mode = H3_GET_MODE(h);
     int h3Res = H3_GET_RESOLUTION(h);
 
-    int h3ComponentCount = H3_EXPORT(getComponentCount)(h);
-    int *components = calloc(h3ComponentCount, sizeof(int));
-    H3_EXPORT(getComponents)(h, components);
+    int *components = calloc(16, sizeof(int));
+    H3_EXPORT(getResDigits)(h, components);
 
     int h3BaseCell = components[0];
 
-    if (verboseMode) {
+    if (verboseMode || 1 == 1) {
         const char *modes[] = {
             "RESERVED",       // 0
             "Cell",           // 1
@@ -84,7 +83,7 @@ void doCell(H3Index h, bool verboseMode) {
             printf("║ Edge       ║ %i\n", H3_GET_RESERVED_BITS(h));
         }
         printf("║ Base Cell  ║ %i\n", h3BaseCell);
-        for (int i = 1; i <= h3Res; i++) {
+        for (int i = 1; i <= 15; i++) {
             printf("║%3i Child   ║ %c\n", i, resDigitToChar(components[i]));
         }
         printf("╚════════════╝\n\n");

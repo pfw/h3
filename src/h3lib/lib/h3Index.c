@@ -1027,26 +1027,21 @@ H3Error H3_EXPORT(getPentagons)(int res, H3Index *out) {
 int isResolutionClassIII(int res) { return res % 2; }
 
 /**
- * getComponentCount returns the number of components for an index
- *
- * @return int count of components
- */
-int H3_EXPORT(getComponentCount)(H3Index h3) {
-    return H3_GET_RESOLUTION(h3) + 1;
-}
-
-/**
- * Generates components for a given index
+ * Get cell numbers for all resolutions of an index. Cells below the indexes
+ * resolution are set to 7.
  *
  * @param h3 The H3 index.
- * @param out Output array. Must be of size getComponentCount().
+ * @param out Output array. 16 elements, 1 for base cell and 15 resolutions.
  */
-H3Error H3_EXPORT(getComponents)(H3Index h3, int *out) {
+H3Error H3_EXPORT(getResDigits)(H3Index h3, int *out) {
     int h3BaseCell = H3_GET_BASE_CELL(h3);
     int h3Res = H3_GET_RESOLUTION(h3);
     out[0] = h3BaseCell;
     for (int i = 1; i <= h3Res; i++) {
         out[i] = H3_GET_INDEX_DIGIT(h3, i);
+    }
+    for (int i = h3Res + 1; i <= 16; i++) {
+        out[i] = 7;
     }
     return E_SUCCESS;
 }
